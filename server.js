@@ -21,7 +21,19 @@ app.post("/add", (req, res) => {
 
   res.json({ name, amount, type });
 });
+app.get("/add", (req, res) => {
+  const text = (req.query.text || "").toLowerCase();
 
+  let type = "debit";
+  if (text.includes("diya") || text.includes("aapyu")) {
+    type = "credit";
+  }
+
+  const amount = text.match(/\d+/)?.[0] || "0";
+  const name = text.split(" ")[0] || "unknown";
+
+  res.json({ name, amount, type });
+});
 // IMPORTANT
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, "0.0.0.0", () => {

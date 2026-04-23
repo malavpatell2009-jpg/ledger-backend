@@ -11,4 +11,11 @@ app.post("/add", (req, res) => {
   }
 
   const amount = text.match(/\d+/)?.[0] || "0";
-  const name = text
+  const name = text.split(" ")[0];
+
+  res.json({ name, amount, type });
+});
+
+// ✅ FIXED PORT
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log("Server running on " + PORT));
